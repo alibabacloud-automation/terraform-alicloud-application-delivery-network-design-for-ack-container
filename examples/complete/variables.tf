@@ -40,7 +40,7 @@ variable "cluster_config" {
   })
   default = {
     cluster_spec                 = "ack.pro.small"
-    ack_version                  = "1.31.1-aliyun.1"
+    ack_version                  = "1.34.1-aliyun.1"
     service_cidr                 = "10.11.0.0/16"
     control_plane_log_components = ["apiserver", "kcm", "scheduler", "ccm"]
   }
