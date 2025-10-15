@@ -1,5 +1,5 @@
 provider "alicloud" {
-  region = "cn-hangzhou"
+  region = "cn-shenzhen"
 }
 
 module "complete" {
