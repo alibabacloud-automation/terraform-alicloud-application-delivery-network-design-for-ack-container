@@ -22,7 +22,7 @@ resource "alicloud_cs_managed_kubernetes" "default" {
   name                         = var.cluster_config.name
   cluster_spec                 = var.cluster_config.cluster_spec
   version                      = var.cluster_config.ack_version
-  worker_vswitch_ids           = alicloud_vswitch.vswitches[*].id
+  vswitch_ids                  = alicloud_vswitch.vswitches[*].id
   pod_vswitch_ids              = alicloud_vswitch.terway_vswitches[*].id
   new_nat_gateway              = var.cluster_config.new_nat_gateway
   service_cidr                 = var.cluster_config.service_cidr
@@ -62,6 +62,9 @@ resource "alicloud_cs_kubernetes_node_pool" "default" {
       category = data_disks.value.category
       size     = data_disks.value.size
     }
+  }
+  lifecycle {
+    ignore_changes = [kubelet_configuration]
   }
 }
 

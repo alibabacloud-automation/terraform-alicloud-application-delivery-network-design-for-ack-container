@@ -9,7 +9,7 @@ variable "vpc_cidr_block" {
 variable "availability_zone" {
   description = "The availability zones of vswitches."
   type        = list(string)
-  default     = ["cn-hangzhou-i", "cn-hangzhou-j", "cn-hangzhou-k"]
+  default     = ["cn-shenzhen-c", "cn-shenzhen-e", "cn-shenzhen-f"]
 }
 
 variable "node_vswitch_cidrs" {
@@ -40,7 +40,7 @@ variable "cluster_config" {
   })
   default = {
     cluster_spec                 = "ack.pro.small"
-    ack_version                  = "1.31.1-aliyun.1"
+    ack_version                  = "1.34.1-aliyun.1"
     service_cidr                 = "10.11.0.0/16"
     control_plane_log_components = ["apiserver", "kcm", "scheduler", "ccm"]
   }
@@ -66,10 +66,11 @@ variable "node_pool_config" {
     })), [])
   })
   default = {
-    runtime_name    = "containerd"
-    runtime_version = "1.6.20"
-    instance_types  = ["ecs.g6.2xlarge", "ecs.g6.xlarge"]
-    desired_size    = 2
+    runtime_name         = "containerd"
+    runtime_version      = "1.6.20"
+    instance_types       = ["ecs.g9i.2xlarge", "ecs.g9i.xlarge"]
+    system_disk_category = "cloud_essd"
+    desired_size         = 2
     data_disks = [{
       category = "cloud_essd"
       size     = 120
