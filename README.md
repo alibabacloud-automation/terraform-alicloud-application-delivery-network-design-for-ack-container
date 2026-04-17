@@ -69,12 +69,13 @@ module "complete" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3 |
+| <a name="requirement_alicloud"></a> [alicloud](#requirement\_alicloud) | >= 1.200.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_alicloud"></a> [alicloud](#provider\_alicloud) | n/a |
+| <a name="provider_alicloud"></a> [alicloud](#provider\_alicloud) | >= 1.200.0 |
 
 ## Modules
 
@@ -84,22 +85,22 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [alicloud_alb_load_balancer.default](https://registry.terraform.io/providers/hashicorp/alicloud/latest/docs/resources/alb_load_balancer) | resource |
-| [alicloud_cs_kubernetes_node_pool.default](https://registry.terraform.io/providers/hashicorp/alicloud/latest/docs/resources/cs_kubernetes_node_pool) | resource |
-| [alicloud_cs_managed_kubernetes.default](https://registry.terraform.io/providers/hashicorp/alicloud/latest/docs/resources/cs_managed_kubernetes) | resource |
-| [alicloud_vpc.default](https://registry.terraform.io/providers/hashicorp/alicloud/latest/docs/resources/vpc) | resource |
-| [alicloud_vswitch.terway_vswitches](https://registry.terraform.io/providers/hashicorp/alicloud/latest/docs/resources/vswitch) | resource |
-| [alicloud_vswitch.vswitches](https://registry.terraform.io/providers/hashicorp/alicloud/latest/docs/resources/vswitch) | resource |
+| [alicloud_alb_load_balancer.default](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/alb_load_balancer) | resource |
+| [alicloud_cs_kubernetes_node_pool.default](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/cs_kubernetes_node_pool) | resource |
+| [alicloud_cs_managed_kubernetes.default](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/cs_managed_kubernetes) | resource |
+| [alicloud_vpc.default](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/vpc) | resource |
+| [alicloud_vswitch.terway_vswitches](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/vswitch) | resource |
+| [alicloud_vswitch.vswitches](https://registry.terraform.io/providers/aliyun/alicloud/latest/docs/resources/vswitch) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_alb_load_balancer_config"></a> [alb\_load\_balancer\_config](#input\_alb\_load\_balancer\_config) | The parameters used to create alb load balancer. | <pre>object({<br>    address_type           = optional(string, "Internet")<br>    address_allocated_mode = optional(string, null)<br>    pay_type               = optional(string, "PayAsYouGo")<br>    load_balancer_edition  = optional(string, "Basic")<br>  })</pre> | `{}` | no |
+| <a name="input_alb_load_balancer_config"></a> [alb\_load\_balancer\_config](#input\_alb\_load\_balancer\_config) | The parameters used to create alb load balancer. | <pre>object({<br/>    address_type           = optional(string, "Internet")<br/>    address_allocated_mode = optional(string, null)<br/>    pay_type               = optional(string, "PayAsYouGo")<br/>    load_balancer_edition  = optional(string, "Basic")<br/>  })</pre> | `{}` | no |
 | <a name="input_availability_zone"></a> [availability\_zone](#input\_availability\_zone) | The availability zones of vswitches. | `list(string)` | `[]` | no |
-| <a name="input_cluster_addons"></a> [cluster\_addons](#input\_cluster\_addons) | The addons to be installed in the cluster. | <pre>list(object({<br>    name   = string<br>    config = string<br>  }))</pre> | <pre>[<br>  {<br>    "config": "",<br>    "name": "terway-eniip"<br>  },<br>  {<br>    "config": "{\"IngressDashboardEnabled\":\"true\"}",<br>    "name": "logtail-ds"<br>  },<br>  {<br>    "config": "",<br>    "name": "arms-prometheus"<br>  },<br>  {<br>    "config": "{\"sls_project_name\":\"\"}",<br>    "name": "ack-node-problem-detector"<br>  },<br>  {<br>    "config": "",<br>    "name": "csi-plugin"<br>  },<br>  {<br>    "config": "",<br>    "name": "csi-provisioner"<br>  },<br>  {<br>    "config": "{\"IngressSlbNetworkType\":\"internet\"}",<br>    "name": "alb-ingress-controller"<br>  }<br>]</pre> | no |
-| <a name="input_cluster_config"></a> [cluster\_config](#input\_cluster\_config) | The parameters used to create managed kubernetes cluster. | <pre>object({<br>    name                         = optional(string, null)<br>    cluster_spec                 = optional(string, null)<br>    ack_version                  = optional(string, null)<br>    new_nat_gateway              = optional(bool, true)<br>    service_cidr                 = optional(string, null)<br>    pod_cidr                     = optional(string, null)<br>    slb_internet_enabled         = optional(bool, true)<br>    enable_rrsa                  = optional(bool, true)<br>    control_plane_log_components = optional(list(string), null)<br>  })</pre> | `{}` | no |
-| <a name="input_node_pool_config"></a> [node\_pool\_config](#input\_node\_pool\_config) | The parameters used to create node pool. | <pre>object({<br>    node_pool_name        = optional(string, "default-nodepool")<br>    instance_types        = list(string)<br>    instance_charge_type  = optional(string, "PostPaid")<br>    runtime_name          = optional(string, null)<br>    runtime_version       = optional(string, null)<br>    desired_size          = optional(number, null)<br>    password              = optional(string, null)<br>    install_cloud_monitor = optional(bool, true)<br>    system_disk_category  = optional(string, "cloud_efficiency")<br>    system_disk_size      = optional(number, 100)<br>    image_type            = optional(string, "AliyunLinux3")<br>    data_disks = optional(list(object({<br>      category = optional(string, "cloud_essd")<br>      size     = optional(number, 120)<br>    })), [])<br>  })</pre> | <pre>{<br>  "instance_types": []<br>}</pre> | no |
+| <a name="input_cluster_addons"></a> [cluster\_addons](#input\_cluster\_addons) | The addons to be installed in the cluster. | <pre>list(object({<br/>    name   = string<br/>    config = string<br/>  }))</pre> | <pre>[<br/>  {<br/>    "config": "",<br/>    "name": "terway-eniip"<br/>  },<br/>  {<br/>    "config": "{\"IngressDashboardEnabled\":\"true\"}",<br/>    "name": "logtail-ds"<br/>  },<br/>  {<br/>    "config": "",<br/>    "name": "arms-prometheus"<br/>  },<br/>  {<br/>    "config": "{\"sls_project_name\":\"\"}",<br/>    "name": "ack-node-problem-detector"<br/>  },<br/>  {<br/>    "config": "",<br/>    "name": "csi-plugin"<br/>  },<br/>  {<br/>    "config": "",<br/>    "name": "csi-provisioner"<br/>  },<br/>  {<br/>    "config": "{\"IngressSlbNetworkType\":\"internet\"}",<br/>    "name": "alb-ingress-controller"<br/>  }<br/>]</pre> | no |
+| <a name="input_cluster_config"></a> [cluster\_config](#input\_cluster\_config) | The parameters used to create managed kubernetes cluster. | <pre>object({<br/>    name                         = optional(string, null)<br/>    cluster_spec                 = optional(string, null)<br/>    ack_version                  = optional(string, null)<br/>    new_nat_gateway              = optional(bool, true)<br/>    service_cidr                 = optional(string, null)<br/>    pod_cidr                     = optional(string, null)<br/>    slb_internet_enabled         = optional(bool, true)<br/>    enable_rrsa                  = optional(bool, true)<br/>    control_plane_log_components = optional(list(string), null)<br/>  })</pre> | `{}` | no |
+| <a name="input_node_pool_config"></a> [node\_pool\_config](#input\_node\_pool\_config) | The parameters used to create node pool. | <pre>object({<br/>    node_pool_name        = optional(string, "default-nodepool")<br/>    instance_types        = list(string)<br/>    instance_charge_type  = optional(string, "PostPaid")<br/>    runtime_name          = optional(string, null)<br/>    runtime_version       = optional(string, null)<br/>    desired_size          = optional(number, null)<br/>    password              = optional(string, null)<br/>    install_cloud_monitor = optional(bool, true)<br/>    system_disk_category  = optional(string, "cloud_efficiency")<br/>    system_disk_size      = optional(number, 100)<br/>    image_type            = optional(string, "AliyunLinux3")<br/>    data_disks = optional(list(object({<br/>      category = optional(string, "cloud_essd")<br/>      size     = optional(number, 120)<br/>    })), [])<br/>  })</pre> | <pre>{<br/>  "instance_types": []<br/>}</pre> | no |
 | <a name="input_node_vswitch_cidrs"></a> [node\_vswitch\_cidrs](#input\_node\_vswitch\_cidrs) | List of cidr blocks used to create several new vswitches. | `list(string)` | `[]` | no |
 | <a name="input_terway_vswitch_cidrs"></a> [terway\_vswitch\_cidrs](#input\_terway\_vswitch\_cidrs) | List of cidr blocks used to create several new vswitches. | `list(string)` | `[]` | no |
 | <a name="input_vpc_cidr_block"></a> [vpc\_cidr\_block](#input\_vpc\_cidr\_block) | The cidr block of the VPC. | `string` | `null` | no |
